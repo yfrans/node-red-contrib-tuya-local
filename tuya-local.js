@@ -32,8 +32,8 @@ module.exports = function(RED) {
 			});
 		}
 
-		function disconnectDevice(deleted) {
-			set_timeout = deleted ? false : true;
+		function disconnectDevice(deletedOrManualDisconnect) {
+			set_timeout = deletedOrManualDisconnect ? false : true;
 			try { clearTimeout(timeout); } catch (e) {}
 			device.disconnect();
 		}
@@ -46,7 +46,7 @@ module.exports = function(RED) {
 				connectToDevice(10,'Connection requested by input for device: ' + this.Name );
 			} else if ( req == "disconnect" ) {
 				node.log("Disconnection requested by input for device: " + this.Name)
-				device.disconnect();
+				device.disconnect(true);
 			} else if (req == "toggle") {
 				device.toggle();
 			} else if ( typeof req == "boolean" ) {
