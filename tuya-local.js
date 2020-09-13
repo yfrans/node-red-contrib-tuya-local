@@ -34,6 +34,7 @@ module.exports = function(RED) {
 
 		function disconnectDevice(deleted) {
 			set_timeout = deleted ? false : true;
+			try { clearTimeout(timeout); } catch (e) {}
 			device.disconnect();
 		}
 // 
