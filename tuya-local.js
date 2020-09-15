@@ -55,6 +55,7 @@ function TuyaLocal(config) {
 		node.log(`Device ${deviceInfo.name} connected!`);
 		clearTimeout(connectInterval);
 		node.status({ fill: 'green', shape: 'dot', text: `connected @ ${new Date().toLocaleTimeString()}` });
+		node.send({ data: { ...deviceInfo, available: true } });
 	});
 
 	tuyaDevice.on('disconnected', () => {
