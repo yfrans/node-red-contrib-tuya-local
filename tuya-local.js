@@ -21,7 +21,7 @@ function TuyaLocal(config) {
 		node.log(`Connecting to ${deviceInfo.name} @ ${deviceInfo.ip} (delay: ${delay ? 'yes' : 'no'})`)
 		clearTimeout(connectInterval);
 		if (delay) {
-			setTimeout(() => connect(), 5000);
+			connectInterval = setTimeout(() => connect(), 5000);
 		} else {
 			if (tuyaDevice.isConnected()) {
 				node.log(`Device ${deviceInfo.name} already connected.`);
@@ -100,7 +100,7 @@ function TuyaLocal(config) {
 		done();
 	});
 
-	//connect();
+	connect();
 }
 
 module.exports = function (red) {
