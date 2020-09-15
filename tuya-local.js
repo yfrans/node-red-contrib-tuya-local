@@ -39,6 +39,7 @@ function TuyaLocal(config) {
 	}
 
 	function handleDisconnection() {
+		node.log(`Device ${deviceInfo.name} disconnected, reconnect: ${tryReconnect}`);
 		if (tryReconnect) {
 			connect(true);
 		}
@@ -51,8 +52,14 @@ function TuyaLocal(config) {
 		node.status({ fill: 'green', shape: 'dot', text: `connected @ ${new Date().toLocaleTimeString()}` });
 	});
 
-	tuyaDevice.on('disconnected', () => handleDisconnection());
-	tuyaDevice.on('error', () => handleDisconnection());
+	tuyaDevice.on('disconnected', () => {
+		node.log(`Device ${deviceInfo.name} disconnected, reconnect: ${tryReconnect}`);
+		handleDisconnection();
+	});
+	tuyaDevice.on('error', (err) => {
+		node.log(`Device ${deviceInfo.name} in error state: ${err}, reconnect: ${tryReconnect}`);
+		handleDisconnection();
+	});
 
 	tuyaDevice.on('data', (data, commandByte) => {
 		if (commandByte) {
