@@ -23,6 +23,9 @@ function TuyaLocal(config) {
 		if (delay) {
 			setTimeout(() => connect(), 5000);
 		} else {
+			if (tuyaDevice.isConnected()) {
+				return;
+			}
 			node.status({ fill: 'yellow', shape: 'dot', text: 'connecting...' });
 			tuyaDevice.connect().then(() => { }).catch(() => { });
 		}
