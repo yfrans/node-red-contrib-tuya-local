@@ -17,9 +17,9 @@ function TuyaLocal(config) {
 	let connectInterval = null;
 	let deviceInfo = { ip: config.devIp, name: config.devName };
 
-	function connect(setTimeout) {
+	function connect(delay) {
 		clearTimeout(connectInterval);
-		if (setTimeout) {
+		if (delay) {
 			setTimeout(() => connect(), 5000);
 		} else {
 			node.status({ fill: 'yellow', shape: 'dot', text: 'connecting...' });
