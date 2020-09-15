@@ -18,6 +18,7 @@ function TuyaLocal(config) {
 	let deviceInfo = { ip: config.devIp, name: config.devName };
 
 	function connect(delay) {
+		node.log(`Connecting to ${deviceInfo.name} @ ${deviceInfo.ip} (delay: ${delay ? 'yes' : 'no'})`)
 		clearTimeout(connectInterval);
 		if (delay) {
 			setTimeout(() => connect(), 5000);
@@ -48,6 +49,7 @@ function TuyaLocal(config) {
 	}
 
 	tuyaDevice.on('connected', () => {
+		node.log(`Device ${deviceInfo.name} connected!`);
 		clearTimeout(connectInterval);
 		node.status({ fill: 'green', shape: 'dot', text: `connected @ ${new Date().toLocaleTimeString()}` });
 	});
