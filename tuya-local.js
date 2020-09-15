@@ -81,6 +81,8 @@ function TuyaLocal(config) {
 		disconnect();
 		done();
 	});
+
+	connect();
 }
 
 module.exports = function (red) {
