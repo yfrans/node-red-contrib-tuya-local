@@ -41,6 +41,7 @@ function TuyaLocal(config) {
 			tuyaDevice.disconnect();
 			node.log(`Disconnected`);
 		}
+		node.send({ data: { ...deviceInfo, available: false } });
 	}
 
 	function handleDisconnection() {
