@@ -100,7 +100,7 @@ function TuyaLocal(config) {
 		done();
 	});
 
-	connect();
+	//connect();
 }
 
 module.exports = function (red) {
