@@ -24,6 +24,7 @@ function TuyaLocal(config) {
 			setTimeout(() => connect(), 5000);
 		} else {
 			if (tuyaDevice.isConnected()) {
+				node.log(`Device ${deviceInfo.name} already connected.`);
 				return;
 			}
 			node.status({ fill: 'yellow', shape: 'dot', text: 'connecting...' });
