@@ -28,9 +28,13 @@ function TuyaLocal(config) {
 	}
 
 	function disconnect() {
+		clearTimeout(connectInterval);
 		tryReconnect = false;
+		node.log(`Disconnect request for ${deviceInfo.name}`);
 		if (tuyaDevice.isConnected()) {
+			node.log(`Device connected, disconnecting...`);
 			tuyaDevice.disconnect();
+			node.log(`Disconnected`);
 		}
 	}
 
