@@ -15,7 +15,7 @@ function TuyaLocal(config) {
 
 	let tryReconnect = true;
 	let connectInterval = null;
-	let deviceInfo = { ip: config.devIp, name: config.devName };
+	let deviceInfo = { ip: config.devIp, name: config.devName, id: config.devId };
 
 	function connect(delay) {
 		node.log(`Connecting to ${deviceInfo.name} @ ${deviceInfo.ip} (delay: ${delay ? 'yes' : 'no'})`)
