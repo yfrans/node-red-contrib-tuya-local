@@ -62,7 +62,7 @@ function TuyaLocal(config) {
 		if (config.pollingInterval !== 0) {
 			statusInterval = setInterval(async () => {
 				await device.get({ schema: true });
-			}, config.pollingInterval);
+			}, config.pollingInterval * 1000);
 		}
 		node.status({ fill: 'green', shape: 'dot', text: `connected @ ${new Date().toLocaleTimeString()}` });
 		node.send({ data: { ...deviceInfo, available: true } });
