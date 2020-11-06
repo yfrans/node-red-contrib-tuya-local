@@ -60,8 +60,10 @@ function TuyaLocal(config) {
 		node.log(`Device ${deviceInfo.name} connected!`);
 		clearTimeout(connectInterval);
 		if (config.pollingInterval !== 0) {
-			statusInterval = setInterval(async () => {
-				await device.get({ schema: true });
+			statusInterval = setInterval(() => {
+				device.get({ schema: true }).then(() => {}).catch(ex => {
+					node.log(`Error while polling status for ${deviceInfo.name}: ${ex.message}`);
+				});
 			}, config.pollingInterval * 1000);
 		}
 		node.status({ fill: 'green', shape: 'dot', text: `connected @ ${new Date().toLocaleTimeString()}` });
