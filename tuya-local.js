@@ -15,11 +15,13 @@ function TuyaLocal(config) {
 
 	let tryReconnect = true;
 	let connectInterval = null;
+	let statusInterval = null;
 	let deviceInfo = { ip: config.devIp, name: config.devName, id: config.devId };
 
 	function connect(delay) {
 		node.log(`Connecting to ${deviceInfo.name} @ ${deviceInfo.ip} (delay: ${delay ? 'yes' : 'no'})`)
 		clearTimeout(connectInterval);
+		clearTimeout(statusInterval);
 		if (delay) {
 			connectInterval = setTimeout(() => connect(), 5000);
 		} else {
@@ -45,6 +47,7 @@ function TuyaLocal(config) {
 	}
 
 	function handleDisconnection() {
+		clearTimeout(statusInterval);
 		node.log(`Device ${deviceInfo.name} disconnected, reconnect: ${tryReconnect}`);
 		if (tryReconnect) {
 			connect(true);
@@ -56,6 +59,11 @@ function TuyaLocal(config) {
 	tuyaDevice.on('connected', () => {
 		node.log(`Device ${deviceInfo.name} connected!`);
 		clearTimeout(connectInterval);
+		if (config.pollingInterval !== 0) {
+			statusInterval = setInterval(async () => {
+				await device.get({ schema: true });
+			}, config.pollingInterval);
+		}
 		node.status({ fill: 'green', shape: 'dot', text: `connected @ ${new Date().toLocaleTimeString()}` });
 		node.send({ data: { ...deviceInfo, available: true } });
 	});

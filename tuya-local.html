@@ -7,6 +7,7 @@
 			devId:			{ value: "", required: true },
 			devKey:			{ value: "", required: true},
 			protocolVer:	{ value: "3.3", required: true},
+			pollingInterval: { value: "5", required: true },
 			renameSchema:	{ value: "" },
 			filterCB: 		{ value: "" },
 		},
@@ -42,6 +43,10 @@
 		<input type="text" id="node-input-protocolVer" placeholder="">
 	</div>
 	<div class="form-row">
+		<label for="node-input-pollingInterval"><i class="fa fa-list-ul"></i> Polling interval</label>
+		<input type="number" id="node-input-pollingInterval" placeholder="">
+	</div>
+	<div class="form-row">
 		<label for="node-input-renameSchema"><i class="fa fa-list-ul"></i> Rename Schema</label>
 		<input type="text" id="node-input-renameSchema" placeholder='{"1":"state"}'>
 	</div>
@@ -66,6 +71,8 @@
 		<dd>Device local key obtained for the device</dd>
 		<dt class="property-type">Version<span class="property-type">string</span></dt>
 		<dd>Tuya protocol version</dd>
+		<dt class="property-type">Polling interval<span class="property-type">number</span></dt>
+		<dd>Status polling interval (0 = disabled)</dd>
 		<dt class="property-type">Rename schema<span class="property-type">JSON</span></dt>
 		<dd>Rename schema. Rename dps keys to friendly strings</dd>
 		<dt class="property-type">Filter commandByte<span class="property-type">string</span></dt>
