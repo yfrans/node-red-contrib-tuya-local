@@ -61,7 +61,7 @@ function TuyaLocal(config) {
 		clearTimeout(connectInterval);
 		if (config.pollingInterval !== 0) {
 			statusInterval = setInterval(() => {
-				device.get({ schema: true }).then(() => {}).catch(ex => {
+				tuyaDevice.get({ schema: true }).then(() => {}).catch(ex => {
 					node.log(`Error while polling status for ${deviceInfo.name}: ${ex.message}`);
 				});
 			}, config.pollingInterval * 1000);
